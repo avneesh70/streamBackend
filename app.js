@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const videoRouter = require('./route/video')
+const PORT = process.env.PORT || 4000;
 let path       = require('path');
 // app.get('/', (req, res, next) =>{
 //     res.send("Hello");
@@ -13,8 +14,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs')
 app.use('/test', require('./route/index'));
 app.use('/video', require('./route/video'));
-app.listen(4000, () => {
-    console.log('Listening on port 4000!')
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`)
 });
 
 // module.exports=app;
