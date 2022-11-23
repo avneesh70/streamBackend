@@ -16,6 +16,7 @@ app.use('/test', require('./route/index'));
 app.use('/video', require('./route/video'));
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`)
+    // console.log(`${process.env.BASE_URL}`)
 });
 
 // module.exports=app;

@@ -9,7 +9,7 @@ let path    = require('path');
 let express = require('express');
 
 let router  = express.Router();
-
+let metadata = require('../metadata')
 //
 //	Stream the video
 //
@@ -17,13 +17,19 @@ router.get('/', function(req, res, next) {
     const range = req.headers.range;
     const id = req.query.id;
     // console.log(id);
+    // console.log(metadata.id)
+    console.log(metadata[1].name)
     if (!range) {
       res.status(400).send("Requires Range header");
     }
   
-    const videoPath = "./public/sample.mp4";
-    const videoSize = fs.statSync("./public/sample.mp4").size;
-  
+    let videoPath = metadata[0].location;
+    let videoSize = fs.statSync(metadata[0].location).size;
+    if (metadata[id]) {
+      videoPath = metadata[id].location;
+      videoSize = fs.statSync(metadata[id].location).size;
+    }
+    console.log(id)
     const CHUNK_SIZE = (10 ** 6) / 2; // 1MB
     const start = Number(range.replace(/\D/g, ""));
     const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
